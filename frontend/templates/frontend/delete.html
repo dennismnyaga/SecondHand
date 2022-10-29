@@ -1,24 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {% if user.id == product.poster.id %}
-    <h1>Are you sure you want to delete  {{product.product_name}}?</h1>
-    <form action="{% url 'frontend:delete' product.id %}" method="post">
-        {%  csrf_token %}
-       <h1>{{user.id}}=={{product.poster.id}}</h1>
-        <a href="{% url 'frontend:details'  product.id%}">No</a>
-        <input type="submit" name="confirm">
-    </form>
-    {% else %}
-    <h1>You should not be here</h1>
-    {% endif %}
-    
-    
-</body>
-</html>
+{% extends 'frontend/main.html' %}
+{% load static %}
+{% block content %}    
+<div class="container updater">
+        <div class="d-flex justify-content-center h-100">
+        <div class="user-card">
+            <div class="d-flex justify-content-center mt-2">
+                {% if user.id == product.poster.id %}
+                <p id="form-title">Are you sure you want to delete  <span>{{product.product_name}}?</span></p>
+            </div>
+            <div class="d-flex justify-content-center form_container">
+                <form action="{% url 'frontend:delete' product.id %}" method="post">
+                    {%  csrf_token %}
+                  
+                    <a class="btn btn-outline-info" href="{% url 'frontend:details'  product.id%}">No</a>
+                    <input class="btn btn-outline-danger" type="submit" name="confirm">
+                </form>
+            </div>  
+            </div>
+            {% else %}
+                <h1>You Should not be here</h1>
+            {% endif %}
+        </div>
+            </div>
+      </div>
+
+{% endblock %}
