@@ -250,13 +250,28 @@
 
 .scrollmenu a {
   display: inline-block;
-  color: white;
+  color: #333;
   text-align: center;
   padding: 14px;
   text-decoration: none;
 }
-
+.scrollmenu a:hover{
+    color: #333;
+}
 
 /* .row .dat{
     width: 50%;
 } */
+
+.update-links{
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.updater{
+    align-content: center;
+    align-items: center;
+    /* background-color: #18b5ce; */
+    padding: auto;
+    margin: auto;
+}

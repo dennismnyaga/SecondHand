@@ -4,12 +4,14 @@
 
 
     <div class="container mt-4">
-        <div class="row">
-            <div class="col-8">col-8</div>
-            <div class="col-4">col-4</div>
-          </div>
+        <div class="containr update-links mb-2">
+            <a class="btn btn-info" href="{% url 'frontend:update'  product.id%}">Update</a>
+            <a class="btn btn-warning" href="{% url 'frontend:delete'  product.id%}">Delete</a>
+
+        </div>
+        <hr>
         <div class="row" id="content-wrapper">
-            <div class="col-8 column dat">
+            <div class="col-md-7 column dat">
                 <img id=featured src="{{ product.images.url }}">
         
                 <div id="slide-wrapper" >
@@ -30,7 +32,7 @@
                 </div>
             </div>
         
-            <div class="col-4 column">
+            <div class="col-md-5 column">
                 <h1>{{product.product_name}}</h1>
                 <hr>
                 <h3>Highest Bid: Ksh {{product.price}}</h3>
@@ -53,7 +55,7 @@
         </div>
         <div class=" scrollmenu">
             {% for product in more %}
-            <a href="{% url 'frontend:details'  product.id%}">
+            <a class="scroll-dat" href="{% url 'frontend:details'  product.id%}">
                 <div class="card mt-2" style="width: 16rem; ">
                     <img width="240" height="180" src="{{product.images.url}}" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -71,9 +73,7 @@
 
 
 
-      <!-- <button><a href="{% url 'frontend:update'  product.id%}">Update</a></button>
-      <button class="btn btn-danger"><a href="{% url 'frontend:delete'  product.id%}">Delete</a></button> -->
-
+      
       
 
 {% endblock %}
