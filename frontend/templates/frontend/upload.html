@@ -1,0 +1,88 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload</title>
+</head>
+<body>
+    <div class="upl">
+        <!-- <form  method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.poster}}
+            {{form.product_name}}
+            {{form.price}}
+            {{form.category}}
+            {{form.expected_sales_date}}
+            {{form.current_bid}}
+            <input type="file" name="images" multiple {{form.images}}>
+            {{form.details}}
+            <button name="submit">Add topic</button>
+        </form> -->
+
+        <form method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-span-2">
+                <label for=""> Product name</label>
+                <input type="text" name="product_name">
+            </div>
+            <div class="col-span-2">
+                <label for="about">Price</label>  
+                <input type="number" name="price">
+                <!-- <textarea id="about" name="bio" rows="3"  class="shadow-none bg-gray-100">{{ user_profile.bio }}</textarea> -->
+            </div> 
+            <div class="col-span-2">
+                <label>Select a category</label>
+                    <select name="category" class="form-control">
+                        <option value='none'>Select a category...</option>
+
+                        {% for category in categories %}
+                        <option value='{{category.id}}'>{{category.name}}</option>
+                        {% endfor %}
+                    </select>
+            </div>
+            <div class="col-span-2">
+                <label for="expected sales date">expected sales date</label>
+                <input type="datetime" name="expected_sales_date">
+            </div>
+            <div class="col-span-2">
+                <label for="current_bid">Current Bid</label>
+                <input type="number" name="current_bid" id="">
+            </div>
+            <div class="col-span-2">
+                <label for="images">Upload Upto 10 images</label>
+                <input required name="images" type="file" multiple>
+            </div>
+            <div class="col-span-2">
+                <label for="details">Product Details</label>
+                <input type="text" name="details">
+                <!-- <textarea name="details"></textarea> -->
+            </div>
+            <button type="submit" class="button bg-blue-700"> Save </button>
+        </form>
+        
+        <!-- <form action="{% url 'frontend:upload' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p class="my-3 leading-6"> Sell Goods
+            </p>
+            <div>
+                <input type="file" name="image_upload">
+                
+                <input type="text" name="productname" placeholder="product name">
+                <input type="text" name="prices" placeholder="price">
+                {% for choice in pro %}
+                 
+                    <input type="radio" name="category" id="choice{{ forloop.counter }}" value="{{ choice }}">
+                    <label for="choice{{ forloop.counter }}">{{ choice.category }}</label><br>
+                {% endfor %}
+                <input type="datetime" name="expected_sales_date" placeholder="expected sales date">
+                <textarea class="button soft-warning small" name="details" placeholder="details" id=""></textarea>
+                <br>
+                <button class="button bg-blue-700" type="submit">Upload</button>
+            </div>
+        </form> -->
+    </div>
+</body>
+</html>

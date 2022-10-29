@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% for product in products %}
+        <div class="salescard">
+            {{product.poster}}
+            {{product.product_name}}
+            {{product.price}}
+            {{product.current_bid}}
+            {{product.expected_sales_date}}
+            <button><a href="{% url 'frontend:details'  product.id%}">Details</a></button>
+            <img width="200" height="200" src="{{product.images.url}}" alt="">
+            <button><a href="{% url 'frontend:update'  product.id%}">Update</a></button>
+            <button class="btn btn-danger"><a href="{% url 'frontend:delete'  product.id%}">Delete</a></button>
+        </div>
+    {% endfor %}
+</body>
+</html>

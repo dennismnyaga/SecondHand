@@ -1,0 +1,25 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+</head>
+<body>
+    {% if user.id == product.poster.id %}
+        <form  method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <h1>{{user.id}}=={{product.poster.id}}</h1>
+            <button name="submit">Add topic</button>
+        </form>
+    {% else %}
+    <h1>You Should not be here</h1>
+    {% endif %}
+
+   
+   
+</body>
+</html>

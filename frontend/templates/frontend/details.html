@@ -1,0 +1,79 @@
+{% extends 'frontend/main.html' %}
+{% load static %}
+{% block content %}
+
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-8">col-8</div>
+            <div class="col-4">col-4</div>
+          </div>
+        <div class="row" id="content-wrapper">
+            <div class="col-8 column dat">
+                <img id=featured src="{{ product.images.url }}">
+        
+                <div id="slide-wrapper" >
+                    <img id="slideLeft" class="arrow" src="{{ product.images.url }}">
+        
+                    <div id="slider">
+                        <img class="thumbnail active" src="{{ product.images.url }}">
+                        <img class="thumbnail" src="{{ product.images.url }}">
+                        <img class="thumbnail" src="{{ product.images.url }}">
+        
+                        <img class="thumbnail" src="{{ product.images.url }}">
+                        <img class="thumbnail" src="{{ product.images.url }}">
+                        <img class="thumbnail" src="{{ product.images.url }}">
+                        <img class="thumbnail" src="{{ product.images.url }}">
+                    </div>
+        
+                    <img id="slideRight" class="arrow" src="{{ product.images.url }}">
+                </div>
+            </div>
+        
+            <div class="col-4 column">
+                <h1>{{product.product_name}}</h1>
+                <hr>
+                <h3>Highest Bid: Ksh {{product.price}}</h3>
+        
+                <p>{{product.details}}</p>
+        
+                <div class="cc">
+                    <span class="bid-time">Bid Ends on: {{product.expected_sales_date}}</span>
+                    <span class="mt-3">Place your bid</span>
+                </div>
+               
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="number">
+                    <button class="btn btn-dark" type="submit">Bid</button>
+                </form>
+                
+            </div>
+        
+        </div>
+        <div class=" scrollmenu">
+            {% for product in more %}
+            <a href="{% url 'frontend:details'  product.id%}">
+                <div class="card mt-2" style="width: 16rem; ">
+                    <img width="240" height="180" src="{{product.images.url}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h4 class="card-title tit">{{product.product_name}}</h4>
+                    <h6 class="card-text">Current Bid KSh{{bids.bid}}</h6>
+                    <p class="card-title own">Owners Target: Ksh. {{product.price}}</p>
+                    <p class="card-text">Time Left: {{product.date_posted|timesince}} ago</p>
+                    </div>
+                </div>
+            </a>
+            
+            {% endfor %}
+          </div>
+    </div>
+
+
+
+      <!-- <button><a href="{% url 'frontend:update'  product.id%}">Update</a></button>
+      <button class="btn btn-danger"><a href="{% url 'frontend:delete'  product.id%}">Delete</a></button> -->
+
+      
+
+{% endblock %}
