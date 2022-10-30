@@ -12,13 +12,22 @@ class Category(models.Model):
         return self.name
 
 class Product(models.Model):
+    # CATEGORY = (
+    #     ('Electronics', 'Electronics'),
+    #     ('Furniture', 'Furniture'),
+    #     ('Fashion', 'Fashion'),
+    #     ('More', 'More'),
+    #     ('Prop', 'Prop'),
+    #     ('vehicles', 'vehicles')
+    # )
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     poster = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     product_name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=7, decimal_places=2)
-    category = models.ForeignKey(Category ,on_delete=models.CASCADE)
+    # category = models.CharField(max_length = 200, choices = CATEGORY)
+    category = models.ForeignKey(Category ,on_delete=models.CASCADE, null=True, blank=True)
     expected_sales_date = models.DateField()
-    # current_bid = models.DecimalField(max_digits=7, decimal_places=2)
+    current_bid = models.DecimalField(max_digits=7, decimal_places=2)
     images = models.ImageField(upload_to='product_images', null = True)
     details = models.TextField()
     date_posted = models.DateField(auto_now_add=True)

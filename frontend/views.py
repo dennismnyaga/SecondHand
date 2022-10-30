@@ -119,3 +119,38 @@ def deleteproduct(request, product_id):
 
 def placebid(request):
     pass
+
+
+def vehecles(request):
+    context = {}
+    return render(request, 'frontend/vehecles.html', context)
+
+
+def electronics(request):
+    # category = Category.objects.all()
+    # product = Product.objects.all()
+    # electronics = product.filter(category='Electronics')
+    context = {}
+    return render(request, 'frontend/electronics.html', context)
+
+
+def fashion(request):
+    context = {}
+    return render(request, 'frontend/fashion.html', context)
+
+
+
+def furniture(request):
+    context = {}
+    return render(request, 'frontend/furniture.html', context)
+
+
+
+def properties(request):
+    context = {}
+    return render(request, 'frontend/properties.html', context)
+
+
+def more(request):
+    context = {}
+    return render(request, 'frontend/more.html', context)

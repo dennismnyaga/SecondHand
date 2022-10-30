@@ -1,24 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'frontend/main.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
     {% for product in products %}
-        <div class="salescard">
-            {{product.poster}}
-            {{product.product_name}}
-            {{product.price}}
-            {{product.current_bid}}
-            {{product.expected_sales_date}}
-            <button><a href="{% url 'frontend:details'  product.id%}">Details</a></button>
-            <img width="200" height="200" src="{{product.images.url}}" alt="">
-            <button><a href="{% url 'frontend:update'  product.id%}">Update</a></button>
-            <button class="btn btn-danger"><a href="{% url 'frontend:delete'  product.id%}">Delete</a></button>
+    <div class="col-sm-3">
+      
+        <div class="card mt-2" style="width: 16rem; ">
+            <img width="240" height="180" src="{{product.images.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+            <h4 class="card-title tit">{{product.product_name}}</h4>
+            <h6 class="card-text">Current Bid KSh{{bids.bid}}</h6>
+            <p class="card-title own">Target: Ksh. {{product.price}}</p>
+            <p class="card-text">Time Left: {{product.date_posted|timesince}} ago</p>
+            <a href="{% url 'frontend:details'  product.id%}" class="btn btn-primary">Details</a>
+            </div>
         </div>
+
+    </div>
     {% endfor %}
-</body>
-</html>
+
+</div>
+{% endblock %}
