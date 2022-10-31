@@ -122,35 +122,79 @@ def placebid(request):
 
 
 def vehecles(request):
-    context = {}
+    product = Product.objects.filter(category__name='Vehicles')
+
+    paginator = Paginator(product, 21)
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
+  
+    context = {'products':products}
     return render(request, 'frontend/vehecles.html', context)
 
 
 def electronics(request):
-    # category = Category.objects.all()
-    # product = Product.objects.all()
-    # electronics = product.filter(category='Electronics')
-    context = {}
+    product = Product.objects.filter(category__name='Mobile Phones, Tablets, & Accessories')
+
+    paginator = Paginator(product, 21)
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
+  
+    context = {'products':products}
     return render(request, 'frontend/electronics.html', context)
 
 
+def generalelectronics(request):
+    product = Product.objects.filter(category__name='Electronics & Home Appliances')
+
+    paginator = Paginator(product, 21)
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
+  
+    context = {'products':products}
+    return render(request, 'frontend/generalelectronics.html', context)
+
+
 def fashion(request):
-    context = {}
+    product = Product.objects.filter(category__name='Fashion and Beauty')
+
+    paginator = Paginator(product, 21)
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
+  
+    context = {'products':products}
     return render(request, 'frontend/fashion.html', context)
 
 
 
 def furniture(request):
-    context = {}
+    product = Product.objects.filter(category__name='Home Furniture & Decor')
+
+    paginator = Paginator(product, 21)
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
+  
+    context = {'products':products}
     return render(request, 'frontend/furniture.html', context)
 
 
 
 def properties(request):
-    context = {}
+    product = Product.objects.filter(category__name='Properties')
+
+    paginator = Paginator(product, 21)
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
+  
+    context = {'products':products}
     return render(request, 'frontend/properties.html', context)
 
 
 def more(request):
-    context = {}
+    product = Product.objects.filter(category__name='Others')
+
+    paginator = Paginator(product, 21)
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
+  
+    context = {'products':products}
     return render(request, 'frontend/more.html', context)

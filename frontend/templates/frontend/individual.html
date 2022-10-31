@@ -3,11 +3,6 @@
 {% block content %}
 <div class="container main-cont">
   <div class="row mt-3">
-    <div class="head-text">
-        <span>Other Products</span>
-        <hr>
-    </div>
-
       {% for product in products %}
       <div class="col-sm-3">
       
@@ -32,7 +27,7 @@
         {% if products.has_previous %}
             <a class="btn btn-outline-info mb-4" href="?page=1">&laquo; first</a>
             <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">previous</a>
-            
+            {% empty %}
 
         {% endif %}
 
@@ -42,10 +37,10 @@
             
           {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
             <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
-          
+            {% empty %}
 
           {% endif %}
-       
+          {% empty %}
 
         {% endfor %}
 
@@ -56,7 +51,7 @@
         {% if products.has_next %}
             <a class="btn btn-outline-info mb-4" href="?page={{ products.next_page_number }}">next</a>
             <a class="btn btn-outline-info mb-4" href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
-            
+            {% empty %}
 
         {% endif %}
     </span>

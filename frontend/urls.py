@@ -14,6 +14,7 @@ urlpatterns = [
     path('furniture/', views.furniture, name = 'furniture'),
     path('more/', views.more, name = 'more'),
     path('properties/', views.properties, name = 'properties'),
+    path('generalelectronics/', views.generalelectronics, name = 'general'),
 
 
     path('uploadnewproduct/', views.uploadproduct, name = 'upload'),

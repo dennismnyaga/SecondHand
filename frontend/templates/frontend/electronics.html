@@ -2,9 +2,12 @@
 {% load static %}
 {% block content %}
 <div class="container main-cont">
-    
   <div class="row mt-3">
-    <span class="rec">Fresh Recomendations</span>
+    <div class="head-text">
+        <span>Phones Tablets & Accessories</span>
+        <hr>
+    </div>
+
       {% for product in products %}
       <div class="col-sm-3">
       
@@ -20,6 +23,8 @@
           </div>
 
       </div>
+      {% empty %}
+      <h4>No Products yet!</h4>
   {% endfor %}
   </div>
   <div class="pagination mt-3">
@@ -27,14 +32,21 @@
         {% if products.has_previous %}
             <a class="btn btn-outline-info mb-4" href="?page=1">&laquo; first</a>
             <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">previous</a>
+            
+
         {% endif %}
 
         {% for num in products.paginator.page_range %}
           {% if products.number == num %}
             <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            
           {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
             <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+          
+
           {% endif %}
+       
+
         {% endfor %}
 
         <!-- <span class="current">
@@ -44,6 +56,8 @@
         {% if products.has_next %}
             <a class="btn btn-outline-info mb-4" href="?page={{ products.next_page_number }}">next</a>
             <a class="btn btn-outline-info mb-4" href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
+            
+
         {% endif %}
     </span>
 </div>
