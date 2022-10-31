@@ -1,3 +1,70 @@
-@media (max-width:991px) {
-    
+/* @media (min-width:768px) {
+    .main-cont{
+        max-width: 75px;
+        width: 100% !important;
+        
+    }
+    .main-cont .carousel{
+        width: 100% !important;
+    }
+    .main-cont .carousel .carousel-inner{
+        width: 100% !important;
+    }
+    .main-cont .carousel .carousel-inner .carousel-item{
+        width: 100% !important;
+    }
+
+    .main-cont .carousel .carousel-inner .carousel-item img{
+        width: 100% !important;
+    }
+} */
+
+/* .container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: 0;
+  margin-left: 0;
+  background-color: aqua;
 }
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+
+.container {
+  min-width: 992px !important;
+} */
+
+/* @media (min-width: 1199px) {
+    .row .col-sm-3 .card{
+      width: 14rem;
+    }
+  }
+
+  @media (min-width: 1087px) {
+    .row .col-sm-3 .card{
+      width: 13rem;
+    }
+  } */
