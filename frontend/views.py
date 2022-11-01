@@ -198,3 +198,9 @@ def more(request):
   
     context = {'products':products}
     return render(request, 'frontend/more.html', context)
+
+
+
+
+def individual(request):
+    return render(request, 'frontend/individual.html')

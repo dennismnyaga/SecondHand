@@ -1,59 +1,38 @@
-{% extends 'frontend/main.html' %}
 {% load static %}
-{% block content %}
-<div class="container main-cont">
-  <div class="row mt-3">
-      {% for product in products %}
-      <div class="col-sm-3">
-      
-          <div class="card mt-2" style="width: 16rem; ">
-              <img width="240" height="180" src="{{product.images.url}}" class="card-img-top" alt="...">
-              <div class="card-body">
-              <h4 class="card-title tit">{{product.product_name}}</h4>
-              <h6 class="card-text">Current Bid KSh{{bids.bid}}</h6>
-              <p class="card-title own">Owners Target: Ksh. {{product.price}}</p>
-              <p class="card-text">Time Left: {{product.date_posted|timesince}} ago</p>
-              <a href="{% url 'frontend:details'  product.id%}" class="btn btn-primary">Details</a>
-              </div>
-          </div>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'frontend/css/individual.css' %}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">OLX</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit"><span class="material-symbols-outlined">
+            search
+            </span></button>
+        </form>
       </div>
-      {% empty %}
-      <h4>No Products yet!</h4>
-  {% endfor %}
-  </div>
-  <div class="pagination mt-3">
-    <span class="step-links">
-        {% if products.has_previous %}
-            <a class="btn btn-outline-info mb-4" href="?page=1">&laquo; first</a>
-            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">previous</a>
-            {% empty %}
+    </div>
+  </nav>
 
-        {% endif %}
 
-        {% for num in products.paginator.page_range %}
-          {% if products.number == num %}
-            <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-            
-          {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
-            <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
-            {% empty %}
-
-          {% endif %}
-          {% empty %}
-
-        {% endfor %}
-
-        <!-- <span class="current">
-            Page {{ products.number }} of {{ products.paginator.num_pages }}.
-        </span> -->
-
-        {% if products.has_next %}
-            <a class="btn btn-outline-info mb-4" href="?page={{ products.next_page_number }}">next</a>
-            <a class="btn btn-outline-info mb-4" href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
-            {% empty %}
-
-        {% endif %}
-    </span>
-</div>
-{% endblock %}
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+</body>
+</html>

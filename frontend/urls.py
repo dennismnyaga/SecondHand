@@ -22,6 +22,11 @@ urlpatterns = [
     path('update/<product_id>/', views.updatepost, name = 'update'),
     path('delete/<product_id>/', views.deleteproduct, name = 'delete'),
     
+
+
+
+     path('ind/', views.individual),
+    
 ]
 
 # (r'^deal/(?P<post_id>[\w-]+)/$'

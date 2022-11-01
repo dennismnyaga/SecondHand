@@ -1,3 +1,7 @@
+.header{
+    display: flex;
+    flex-direction: column;
+}
 .navbar-brand{
     font-weight: 700;
     color: #222;
@@ -10,7 +14,7 @@
 .right{
     display: flex;
     justify-content: space-between;
-    margin-right: 2px;
+    /* margin-right: 2px; */
     align-items: center;
 
 }
@@ -50,24 +54,33 @@
     text-decoration: underline;
     color: #333;
 }
-.collapse .d-flex .form-control{
+.collaps{
+    width: 100%;
+   
+}
+.collaps .d-flex{
+    width: 100%;
+    width: auto;
+}
+.collaps .d-flex .form-control{
     border-right: none;
     border-radius: 5px 0 0px 5px;
+    width: 100%;
 }
 
-.collapse .d-flex .form-control:focus{
+.collaps .d-flex .form-control:focus{
     border-color: none;
     box-shadow:none
 }
 
-.collapse .d-flex .btn{
+.collaps .d-flex .btn{
     border-left: none;
     border-radius: 0 5px 5px 0;
     background-color: #333;
     color: #fff;
     border-color: #333;
 }
-.collapse .d-flex .btn:hover{
+.collaps .d-flex .btn:hover{
     background-color: #333;
 }
 
@@ -208,6 +221,11 @@
 
 }
 
+.bottom-navbar{
+    background-color: #18b5ce;
+    margin-top: 15rem;
+}
+
 /* #slider::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     
@@ -340,3 +358,9 @@
 
 
 
+@media (max-width=991px) {
+    .navbar a{
+        text-align: center; 
+        color: red; 
+    }
+}
