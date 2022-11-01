@@ -28,8 +28,11 @@
           <span class="visually-hidden">Next</span>
         </button> -->
       </div>
-  <div class="row mt-3">
-    <span class="rec">Fresh Recomendations</span>
+
+      <div class="ite  mt-3">
+        <span class="rec">Fresh Recomendations</span>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+    
       {% for product in products %}
       <div class="col">
       
@@ -47,6 +50,7 @@
       </div>
   {% endfor %}
   </div>
+</div>
   <div class="pagination mt-3">
     <span class="step-links">
         {% if products.has_previous %}

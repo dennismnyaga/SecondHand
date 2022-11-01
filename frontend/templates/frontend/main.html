@@ -13,9 +13,12 @@
     
 </head>
 <body>
+
+
+
   <div class="header">
-    <nav class="navbar navbar-expand-lg fixed-top bg-light">
-        <div class="container">
+    <header class="navbar navbar-expand-lg  bg-light">
+        <div class="container bb">
           <a class="navbar-brand" href="/">MAC</a>
           <div class="collaps navbar-collaps">
             <form class="d-flex" role="search">
@@ -37,9 +40,6 @@
               </ul>
             </li>
             </div>
-                
-                <a class="" href="{% url 'frontend:mysales' %}">My Sales</a>
-                <!-- <a class="btn btn-warning" href="{% url 'users:logout' %}">Log out</a> -->
             {% else %}
                 <a href="{% url 'users:signup' %}">Register</a>
                 <a href="{% url 'users:signin' %}">Login</a>
@@ -48,43 +48,46 @@
                 <span class="material-symbols-outlined">add</span>
                 <a href="{% url 'frontend:upload' %}">SELL</a>
             </div>
+            <button class="navbar-toggler ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            
             <!-- <a class="btn btn-info sell-btn" href="{% url 'frontend:upload' %}"><span class="material-symbols-outlined">add</span>SELL</a> -->
           </div>
           
         </div>
-      </nav>
-      <nav class="navbar navbar-expand-lg   shadow bottom-navbar">
-        <div class="container">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button> 
-          <div class="collapse navbar-collapse bottom-nav" id="navbarSupportedContent">
-            <ul class="navbar-nav  mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'frontend:vehecles' %}" class="nav-item">Vehicles</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'frontend:properties' %}" class="nav-item">Properties</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'frontend:electronics' %}" class="nav-item">Phones, Tablets & Accessories</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'frontend:general' %}" class="nav-item">Electronics & Home Appliances</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'frontend:furniture' %}" class="nav-item">Home Furniture & Decor</a>
-              </li>
-              <!-- <li class="nav-item">
-                <a class="nav-link" href="{% url 'frontend:fashion' %}" class="nav-item">Fashion & Beauty</a>
-              </li> -->
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'frontend:more' %}" class="nav-item">More</a>
-              </li>
-            </ul>
+        <nav class="navbar navbar-expand-lg sticky-top   bottom-navbar">
+          <div class="container-fluid">
+             
+            <div class="collapse navbar-collapse bottom-nav" id="navbarSupportedContent">
+              <ul class="navbar-nav  mb-2 mb-sm-0">
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'frontend:vehecles' %}" class="nav-item">Vehicles</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'frontend:properties' %}" class="nav-item">Properties</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'frontend:electronics' %}" class="nav-item">Phones, Tablets & Accessories</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'frontend:general' %}" class="nav-item">Electronics & Home Appliances</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'frontend:furniture' %}" class="nav-item">Home Furniture & Decor</a>
+                </li>
+                <!-- <li class="nav-item">
+                  <a class="nav-link" href="{% url 'frontend:fashion' %}" class="nav-item">Fashion & Beauty</a>
+                </li> -->
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'frontend:more' %}" class="nav-item">More</a>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+    </header>
+   
 
     </div>
 
