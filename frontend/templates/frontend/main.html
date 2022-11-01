@@ -27,9 +27,19 @@
           </div>
           <div class="right">
             {% if user.is_authenticated %}
-                <a href="{% url 'users:usercredentials' %}">Your Profile</a>
-                <a class="nav-link" href="{% url 'frontend:mysales' %}">My Sales</a>
-                <a class="btn btn-warning" href="{% url 'users:logout' %}">Log out</a>
+            <div class="dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Profile</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'frontend:mysales' %}">My Sales</a></li>
+                <li><a class="dropdown-item" href="{% url 'users:usercredentials' %}">My Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'users:logout' %}">Log Out</a></li>
+              </ul>
+            </li>
+            </div>
+                
+                <a class="" href="{% url 'frontend:mysales' %}">My Sales</a>
+                <!-- <a class="btn btn-warning" href="{% url 'users:logout' %}">Log out</a> -->
             {% else %}
                 <a href="{% url 'users:signup' %}">Register</a>
                 <a href="{% url 'users:signin' %}">Login</a>

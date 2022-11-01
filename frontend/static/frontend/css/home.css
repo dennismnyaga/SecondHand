@@ -16,6 +16,7 @@
     justify-content: space-between;
     /* margin-right: 2px; */
     align-items: center;
+    margin-left: 2px;
 
 }
 .right .btn{
@@ -48,6 +49,10 @@
     text-decoration: none;
     font-weight: 700;
     color: #333;
+}
+
+.right .dropdown .dropdown-menu .dropdown-item:hover{
+    background-color: transparent;
 }
 
 .right a:hover{
@@ -223,7 +228,7 @@
 
 .bottom-navbar{
     background-color: #18b5ce;
-    margin-top: 15rem;
+    margin-top: 10rem;
 }
 
 /* #slider::-webkit-scrollbar-track {
