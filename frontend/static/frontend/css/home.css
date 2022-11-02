@@ -124,6 +124,12 @@ header{
 }
 
 
+.row .col .card{
+    margin-right: 0.8rem;
+    width: calc(25%-0.6rem);
+    height: 32rem;
+    
+}
 
 .row .col-sm-3 .card .card-body h4{
     color: #453C41;
