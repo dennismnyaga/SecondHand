@@ -14,8 +14,8 @@ class UserCredentials(models.Model):
     last_name = models.CharField(max_length = 200)
     phone = models.CharField(max_length=13)
     nationalno = models.IntegerField(null = True)
-    idimage = models.ImageField(upload_to = 'id_photos', default='blank-profile-picture.png')
-    user_image = models.ImageField(upload_to = 'user_images', default='blank-profile-picture.png')
+    idimage = models.ImageField(upload_to = 'id_photos', default='samuele-bertoli-C0gX9PFh07Q-unsplash.jpg')
+    user_image = models.ImageField(upload_to = 'user_images', default='samuele-bertoli-C0gX9PFh07Q-unsplash.jpg')
     location = models.CharField(max_length = 200)
     date_created = models.DateField(auto_now_add=True)
 

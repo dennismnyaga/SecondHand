@@ -91,7 +91,6 @@ def register(request):
 
 def credentials(request):
     user_credential = UserCredentials.objects.get(user = request.user)
-
     if request.method == 'POST':
         if request.FILES.get('image') == None:
             image = user_credential.user_image
@@ -166,5 +165,5 @@ def credentials(request):
             user_credential.location = location
             user_credential.save()
         
-        return redirect('users:usercredentials')
+        return redirect('/')
     return render(request, 'users/usercredentials.html', {'user_credential':user_credential})

@@ -26,6 +26,9 @@ urlpatterns = [
 
 
      path('ind/', views.individual),
+
+
+    path('add/', views.addPhoto, name='add'),
     
 ]
 

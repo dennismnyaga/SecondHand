@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -15,9 +15,9 @@ def home(request):
     # user_object = User.objects.get(username = request.user.username)
     # user_credentials = UserCredentials.objects.get(user = user_object)
 
-    product = Product.objects.order_by('-date_posted')
-    bids = Bid.objects.order_by('-timestamp')
-    paginator = Paginator(product, 5)
+
+    product = Product.objects.order_by('-timestamp')
+    paginator = Paginator(product, 21)
     page_number = request.GET.get('page')
     products = paginator.get_page(page_number)
     
@@ -32,87 +32,29 @@ def comments(request):
     comment_filter = Bid.objects.filter(bid_id=bid_id, username = username).first()
 
 def mysales(request):
-    products = Product.objects.filter(poster=request.user).order_by('-date_posted')
+    products = Product.objects.filter(poster=request.user)
     context = {"products":products}
     return render(request, 'frontend/mysales.html', context)
 
 
 
 def productdetails(request, product_id):
-    more = Product.objects.order_by('-date_posted')[0:10]
+    more = Product.objects.order_by('-timestamp')
     product = Product.objects.get(id=product_id)
-    context = {'product': product, 'more':more}
+    images = Photo.objects.filter(product=product)
+    context = {'product': product, 'images':images, 'more':more}
 
     return render(request,'frontend/details.html', context)
 
-def updatepost(request, product_id):
 
-    product = Product.objects.get(id=product_id)
-    form = updateform(instance=product)
-    if request.method == 'POST':
-        form = updateform(request.POST, request.FILES, instance=product)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-        else:
-            return redirect('/')
-    context = {'form': form, 'product':product}
-    return render(request, 'frontend/updatepost.html', context)
-
-
-@login_required(login_url='users:signin')
-def uploadproduct(request):
-    categories = Category.objects.all()
-    user_credential = UserCredentials.objects.get(user = request.user)
-    if request.method == 'POST':
-        poster = request.user
-        images = request.FILES.get('images')
-        product_name = request.POST['product_name']
-        price = request.POST['price']
-        if request.POST['category'] != 'none':
-            category = Category.objects.get(id=request.POST['category'])
-        # elif request.POST['category_new'] != '':
-        #     category, created = Category.objects.get_or_create(
-        #         user=user,
-        #         name=data['category_new'])
-        else:
-            category = None
-        # category = request.POST['category']
-        expected_sales_date = request.POST['expected_sales_date']
-        current_bid = request.POST['current_bid']
-        details = request.POST['details']
-
-
-
-        # user_credential.user_image = image
-        # user_credential.idimage = idimage
-        # user_credential.first_name = firstname
-        # user_credential.last_name = lastname
-        # user_credential.phone = phone
-        # user_credential.nationalno = nationalno
-        # user_credential.location = location
-
-       
-        for image in images:
-            Product.objects.create(
-                poster=poster,
-                images=images,
-                product_name=product_name,
-                price=price,
-                category=category,
-                expected_sales_date=expected_sales_date,
-                current_bid=current_bid,
-                details=details,
-            )
-            return redirect('/')
-    context = {'categories':categories}
-    return render(request, 'frontend/upload.html', context)
-
+    
 
 def deleteproduct(request, product_id):
     product = Product.objects.get(id=product_id)
+    images = Photo.objects.filter(product=product)
     if request.method =='POST':
         product.delete()
+        images.delete()
         return redirect('/')
     context = {'product':product}
     return render(request, 'frontend/delete.html', context)
@@ -204,3 +146,175 @@ def more(request):
 
 def individual(request):
     return render(request, 'frontend/individual.html')
+
+
+
+
+@login_required(login_url='users:signin')
+def uploadproduct(request):
+  
+
+    categories = Category.objects.all()
+
+    if request.method == 'POST':
+        data = request.POST
+        images = request.FILES.getlist('images')
+        if data['category'] != 'none':
+            category = Category.objects.get(id=data['category'])
+        elif data['category_new'] != '':
+            category, created = Category.objects.get_or_create(
+                name=data['category_new'])
+        else:
+            category = None
+        # ===================================
+        product, created = Product.objects.get_or_create(
+                poster=request.user,
+                product_name = request.POST['product_name'],
+                thumbnail = request.FILES.get('thumbnail'),
+                price = request.POST['price'],
+                description=request.POST['description'],
+                category = Category.objects.get(id=request.POST['category']),
+                expected_sales_date = request.POST['expected_sales_date'],
+                current_bid = request.POST['current_bid'],
+            )
+        # ===================================
+
+        for image in images:
+            photo = Photo.objects.create(
+                product = product,
+                image=image,
+            )
+
+        return redirect('/')
+
+    context = {'categories': categories}
+    return render(request, 'frontend/upload.html', context)
+
+
+def updatepost(request, product_id):
+    categories = Category.objects.all()
+    product = Product.objects.get(id=product_id)
+    images = Photo.objects.filter(product=product)
+    if request.method == 'POST':
+        # ==========================================
+        if request.FILES.get('thumbnail') == None:
+            thumbnail = images.product.thumbnail
+            product_name = request.POST['product_name']
+            price = request.POST['price']
+            expected_sales_date = request.POST['expected_sales_date']
+            description = request.POST['description']
+            current_bid = request.POST['current_bid']
+            category = Category.objects.get(id=request.POST['category']) # request.POST['category']
+
+            photo = images.image
+
+            
+            
+            
+            # images.image = image
+            # images.product.thumbnail = thumbnail
+            # images.product.product_name = product_name
+            # images.product.price = price
+            # images.product.current_bid = current_bid
+            # images.product.expected_sales_date = expected_sales_date
+            # images.product.category = category
+            # images.product.description = description
+
+            # images.save()
+            for image in images:
+                product.save()
+                image.save()
+
+            # photo = Photo.objects.(
+            #     product = product,
+            #     image=image,
+            # )
+
+            
+        
+        if request.FILES.get('thumbnail') != None:
+            thumbnail = images.product.thumbnail #request.FILES.get('thumbnail') 
+            product_name = request.POST['product_name']
+            price = request.POST['price']
+            expected_sales_date = request.POST['expected_sales_date']
+            description = request.POST['description']
+            current_bid = request.POST['current_bid']
+            category = Category.objects.get(id=request.POST['category']) # request.POST['category']
+            photo = images.image
+            # firstname = request.POST['first']
+            # lastname = request.POST['last']
+            # location = request.POST['location']
+            # phone = request.POST['phone']
+            # nationalno = request.POST['identitycardno']
+            # idimage = user_credential.idimage
+
+            images.image = image
+            images.product.thumbnail = thumbnail
+            images.product.product_name = product_name
+            images.product.price = price
+            images.product.current_bid = current_bid
+            images.product.expected_sales_date = expected_sales_date
+            images.product.category = category
+            images.product.description = description
+
+            images.save()
+
+        if request.FILES.getlist('photo') == None:
+            thumbnail = request.FILES.get('thumbnail') # images.product.thumbnail
+            product_name = request.POST['product_name']
+            price = request.POST['price']
+            expected_sales_date = request.POST['expected_sales_date']
+            description = request.POST['description']
+            current_bid = request.POST['current_bid']
+            category = Category.objects.get(id=request.POST['category']) # request.POST['category']
+            photo = images.image
+
+
+            # photo = images.image
+            # idimage = user_credential.idimage
+            # firstname = request.POST['first']
+            # lastname = request.POST['last']
+            # location = request.POST['location']
+            # phone = request.POST['phone']
+            # nationalno = request.POST['identitycardno']
+
+            images.image = image
+            images.product.thumbnail = thumbnail
+            images.product.product_name = product_name
+            images.product.price = price
+            images.product.current_bid = current_bid
+            images.product.expected_sales_date = expected_sales_date
+            images.product.category = category
+            images.product.description = description
+
+            images.save()
+
+        
+        if request.FILES.get('photo') != None:
+            thumbnail = request.FILES.getlist('photo')
+            product_name = request.POST['product_name']
+            price = request.POST['price']
+            expected_sales_date = request.POST['expected_sales_date']
+            description = request.POST['description']
+            current_bid = request.POST['current_bid']
+            category = Category.objects.get(id=request.POST['category']) # request.POST['category']
+            photo = images.image
+
+            images.image = image
+            images.product.thumbnail = thumbnail
+            images.product.product_name = product_name
+            images.product.price = price
+            images.product.current_bid = current_bid
+            images.product.expected_sales_date = expected_sales_date
+            images.product.category = category
+            images.product.description = description
+
+            images.save()
+
+    context = {'images':images, 'product':product, 'categories':categories}
+    return render(request, 'frontend/updatepost.html', context)
+
+
+
+def addPhoto(request):
+    return render(request, 'frontend/add.html')

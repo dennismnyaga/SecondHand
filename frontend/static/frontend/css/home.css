@@ -22,7 +22,7 @@ header{
 .right .btn{
     display: flex;
     border-radius: 40%;
-    background-color: transparent;
+   
     border-bottom-color: #EC9704;
     border-top-color: #344C11;
     border-width: 4px;
@@ -431,7 +431,7 @@ header{
 .product-grid{font-family:Raleway,sans-serif;text-align:center;padding:0 0 72px;border:1px solid rgba(0,0,0,.1);overflow:hidden;position:relative;z-index:1}
 .product-grid .product-image{position:relative;transition:all .3s ease 0s}
 .product-grid .product-image a{display:block}
-.product-grid .product-image img{width:100%;height:auto}
+.product-grid .product-image img{width:100%;height:255px;}
 .product-grid .pic-1{opacity:1;transition:all .3s ease-out 0s}
 .product-grid:hover .pic-1{opacity:1}
 .product-grid .pic-2{opacity:0;position:absolute;top:0;left:0;transition:all .3s ease-out 0s}
@@ -454,7 +454,187 @@ header{
 .product-grid .title a{color:#828282}
 .product-grid .title a:hover,.product-grid:hover .title a{color:#ef5777}
 .product-grid .price{color:#333;font-size:17px;font-family:Montserrat,sans-serif;font-weight:700;letter-spacing:.6px;margin-bottom:8px;text-align:center;transition:all .3s}
-.product-grid .price span{color:#999;font-size:13px;font-weight:400;text-decoration:line-through;margin-left:3px;display:inline-block}
+.product-grid .price span{color:#999;font-size:13px;font-weight:400;margin-left:3px;display:inline-block}
 .product-grid .add-to-cart{color:#000;font-size:13px;font-weight:600}
 @media only screen and (max-width:990px){.product-grid{margin-bottom:30px}
 }
+
+
+.MultiCarousel { float: left; overflow: hidden; padding: 15px; width: 100%; position:relative; }
+    .MultiCarousel .MultiCarousel-inner { transition: 1s ease all; float: left; }
+        .MultiCarousel .MultiCarousel-inner .item { float: left;}
+        .MultiCarousel .MultiCarousel-inner .item > div { text-align: center; padding:10px; margin:10px; background:#f1f1f1; color:#666;}
+    .MultiCarousel .leftLst, .MultiCarousel .rightLst { position:absolute; border-radius:50%;top:calc(50% - 20px); }
+    .MultiCarousel .leftLst { left:0; }
+    .MultiCarousel .rightLst { right:0; }
+    
+        .MultiCarousel .leftLst.over, .MultiCarousel .rightLst.over { pointer-events: none; background:#ccc; }
+
+
+
+
+
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+          }
+    
+          @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+              font-size: 3.5rem;
+            }
+          }
+    
+          .b-example-divider {
+            height: 3rem;
+            background-color: rgba(0, 0, 0, .1);
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+          }
+    
+          .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh;
+          }
+    
+          .bi {
+            vertical-align: -.125em;
+            fill: currentColor;
+          }
+    
+          .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+          }
+    
+          .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+          }
+
+
+.d-flex .user-card form .col-span-2 .image_container{
+    height: 120px;
+    width: 200px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 10px;
+}
+
+.d-flex .user-card form .col-span-2 .image_container img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.d-flex .user-card form .col-span-2 .image_container span{
+    top: -6px;
+    right: 8px;
+    color: red;
+    font-size: 28px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+/* ============product Sides====================== */
+
+.containerrr img {
+    vertical-align: middle;
+  }
+  
+  /* Position the image container (needed to position the left and right arrows) */
+  .containerrr {
+    position: relative;
+  }
+  
+  /* Hide the images by default */
+  .containerrr.mySlides {
+    display: none;
+  }
+  
+  /* Add a pointer when hovering over the thumbnail images */
+  .containerrr .cursor {
+    cursor: pointer;
+  }
+  
+  /* Next & previous buttons */
+  .containerrr .prev,
+  .containerrr .next {
+    cursor: pointer;
+    position: absolute;
+    top: 40%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  
+  /* Position the "next button" to the right */
+  .containerrr .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  /* On hover, add a black background color with a little bit see-through */
+  .containerrr .prev:hover,
+  .containerrr .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  /* Number text (1/3 etc) */
+  .containerrr  .numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+  }
+  
+  /* Container for image text */
+  .containerrr  .caption-container {
+    text-align: center;
+    background-color: #222;
+    padding: 2px 16px;
+    color: white;
+  }
+  
+  .containerrr  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Six columns side by side */
+  .containerrr  .column {
+    float: left;
+    width: 16.66%;
+  }
+  
+  /* Add a transparency effect for thumnbail images */
+  .containerrr .demo {
+    opacity: 0.6;
+  }
+  
+  .containerrr  .active,
+  .containerrr  .demo:hover {
+    opacity: 1;
+  }

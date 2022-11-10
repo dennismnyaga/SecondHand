@@ -26,9 +26,9 @@
         <form method="POST" action="">
             {%csrf_token%}
             <div class="fom">
-            <input type="text" name="username" placeholder="Username" class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
-            <input type="password" name="password" placeholder="password" class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
-            <button type="submit" class="btn btn-info text-center bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Login</button>
+            <input type="text" name="username" placeholder="Username" class="form-control bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
+            <input type="password" name="password" placeholder="password" class="form-control bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
+            <button type="submit" class="btn btn-info text-center bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl">Login</button>
             <div class="text-center space-x-2">
                 <p class="text-base"> Not registered? <a href="{% url 'users:signup' %}" class=""> Create a account </a></p>
             </div>

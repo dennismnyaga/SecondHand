@@ -2,22 +2,41 @@
 {% load static %}
 {% block content %}
 <div class="container">
+    <div class="row">
     {% for product in products %}
-    <div class="col-sm-3">
-      
-        <div class="card mt-2" style="width: 16rem; ">
-            <img width="240" height="180" src="{{product.images.url}}" class="card-img-top" alt="...">
-            <div class="card-body">
-            <h4 class="card-title tit">{{product.product_name}}</h4>
-            <h6 class="card-text">Current Bid KSh{{bids.bid}}</h6>
-            <p class="card-title own">Target: Ksh. {{product.price}}</p>
-            <p class="card-text">Time Left: {{product.date_posted|timesince}} ago</p>
-            <a href="{% url 'frontend:details'  product.id%}" class="btn btn-primary">Details</a>
+    <div class="col-md-3 col-6 mb-3">
+        <div class="product-grid">
+            <div class="product-image">
+                <a href="{% url 'frontend:details'  product.id%}">
+                    <img class="pic-1" src="{{product.thumbnail.url}}">
+                    <img  class="pic-2" src="{{product.thumbnail.url}}">
+                </a>
+                <ul class="social">
+                    <li><a href="" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
+                    <li><a href="" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+                    <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                </ul>
+                <span class="product-new-label">Sale</span>
+                <span class="product-discount-label">20%</span>
+            </div>
+            <ul class="rating">
+                <li class="fa fa-star"></li>
+                <li class="fa fa-star"></li>
+                <li class="fa fa-star"></li>
+                <li class="fa fa-star"></li>
+                <li class="fa fa-star disable"></li>
+            </ul>
+            <div class="product-content">
+                <h3 class="title"><a href="#">{{product.product_name}}</a></h3>
+                <div class="price">Current Price KSh {{product.price}} 
+                    <span>Owners Target: Ksh20.00</span>
+                    
+                </div>
+                <a class="add-to-cart" href="{% url 'frontend:details'  product.id%}"> Bid</a>
             </div>
         </div>
-
     </div>
     {% endfor %}
-
+</div>
 </div>
 {% endblock %}

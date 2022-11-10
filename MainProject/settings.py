@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "storages",
+    "tinymce",
+    "crispy_forms",
+    
 ]
 
 MIDDLEWARE = [
@@ -135,3 +139,9 @@ import django_heroku
 django_heroku.settings(locals())
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+
+
+
+
+
