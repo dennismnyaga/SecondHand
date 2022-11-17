@@ -1,9 +1,9 @@
 {% extends 'frontend/main.html' %}
 {% load static %}
+{% load humanize %}
 {% block content %}
 <div class="container mt-3">
     <div class="containr update-links mb-2">
-        <h1>{{user.id}}=={{product.poster.id}}</h1>
         {% if user.id == product.poster.id %}
             <a class="btn btn-info" href="{% url 'frontend:update'  product.id%}">Update</a>
             <a class="btn btn-warning" href="{% url 'frontend:delete'  product.id%}">Delete</a>
@@ -35,14 +35,34 @@
             <div class="  col-md-5 column">
                 <h1>{{ product.product_name }}</h1>
                 <hr>
-                <h3><span>Current Price</span> Ksh{{product.price}}</h3>
+                
 
                 <p>{{product.description}}</p>
-                <form action="" class="d-flex">
-                    <input class="form-control" type="number">
-                <a class="btn btn-outline-info" href="#">Place bid</a>
-                </form>
+                {% for bid in bid_price %}
+                <h3><span>Current Price</span> Ksh {{bid|intcomma}}</h3>
+                {% endfor %}
                 
+                {% if user.id == product.poster.id %}
+                <div class="des">
+                    <p>Your Target Price Ksh {{product.price|intcomma}}</p>
+                </div>
+                {% else %}
+                <div class="des">
+                    <p>Owners Target Price Ksh {{product.price|intcomma}}</p>
+                </div>
+                {%endif%}
+                {% if user.id == product.poster.id %}
+                {% else %}
+                {% if user.is_authenticated %}
+                <form method="post" action="{% url 'frontend:details'  product.id%}" class="d-flex bid-st">
+                   {%csrf_token%}
+                    <input name="bid" class="form-control-sm me-2" type="number" placeholder="place your Price">
+                    <button type="submit" class="btn btn-outline-secondary">Place bid</button>
+                </form>
+                {% else %}
+                <h5>Login to bid on this product</h5>
+                {% endif %}
+                {%endif%}
             </div>
         </div>
         <div class=" scrollmenu">
@@ -52,7 +72,7 @@
                     <img width="240" height="180" src="{{product.thumbnail.url}}" class="card-img-top" alt="...">
                     <div class="card-body">
                     <h4 class="card-title tit">{{product.product_name}}</h4>
-                    <h6 class="card-text">Current Bid KSh{{bids.bid}}</h6>
+                    <h6 class="card-text">Current Bid KSh{{bids.bid|intcomma}}</h6>
                     <p class="card-title own">Owners Target: Ksh. {{product.price}}</p>
                     <p class="card-text">Time Left: {{product.timestamp|timesince}} ago</p>
                     </div>

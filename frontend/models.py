@@ -18,10 +18,10 @@ class Product(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     poster = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     product_name = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=7, decimal_places=2)
+    price = models.DecimalField(max_digits=15, decimal_places=2)
     expected_sales_date = models.DateField()
     thumbnail = models.ImageField(upload_to= 'product_images', null=False, blank=False)
-    current_bid = models.DecimalField(max_digits=7, decimal_places=2)
+    # current_bid = models.DecimalField(max_digits=7, decimal_places=2)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     description = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -42,29 +42,22 @@ class Photo(models.Model):
     
     image = models.ImageField(upload_to= 'product_images', null=False, blank=False)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    date_posted = models.DateField(auto_now_add=True)
+    date_posted = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.products.product_name
+        return self.product.product_name
 
 
 
 
 
 class Bid(models.Model):
-
-    user = models.ForeignKey(User, verbose_name=("user"), on_delete=models.CASCADE)
-    bid = models.DecimalField(max_digits=7, decimal_places=2)
-    product = models.ForeignKey(
-        Product, verbose_name=("product"), on_delete=models.CASCADE, related_name="comment"
-    )
-
-    class Meta:
-        verbose_name = ("Bid")
-        verbose_name_plural = ("Bids")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    bid = models.DecimalField(max_digits= 15, decimal_places=2)
+    date_bided = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.username
-
+        return str(self.bid)
 
 

@@ -42,9 +42,31 @@ def productdetails(request, product_id):
     more = Product.objects.order_by('-timestamp')
     product = Product.objects.get(id=product_id)
     images = Photo.objects.filter(product=product)
-    context = {'product': product, 'images':images, 'more':more}
+    bid_price = Bid.objects.filter(product=product)
+    print(bid_price)
 
+    
+
+    if request.method == 'POST':
+        user = request.user
+        bid = request.POST['bid']
+        product = product
+
+        Bid.objects.create(
+            user=user,
+            bid=bid,
+            product=product
+        )
+        
+        return redirect('/')
+
+    context = {'product': product, 'images':images, 'more':more, 'bid_price':bid_price}
     return render(request,'frontend/details.html', context)
+
+
+   
+
+
 
 
     
@@ -175,7 +197,7 @@ def uploadproduct(request):
                 description=request.POST['description'],
                 category = Category.objects.get(id=request.POST['category']),
                 expected_sales_date = request.POST['expected_sales_date'],
-                current_bid = request.POST['current_bid'],
+                
             )
         # ===================================
 

@@ -271,6 +271,12 @@ header{
     display: flex;
     flex-direction: column;
 }
+.column h1{
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #282828;
+
+}
 
 .scrollmenu {
   overflow: auto;
@@ -638,3 +644,9 @@ header{
   .containerrr  .demo:hover {
     opacity: 1;
   }
+
+
+.bid-st{
+  background-color: ;
+}
+

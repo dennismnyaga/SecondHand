@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "storages",
     "tinymce",
     "crispy_forms",
+    "django.contrib.humanize",
     
 ]
 

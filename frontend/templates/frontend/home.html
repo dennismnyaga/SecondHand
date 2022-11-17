@@ -1,5 +1,6 @@
 {% extends 'frontend/main.html' %}
 {% load static %}
+{% load humanize %}
 {% block content %}
 <div class="container main-cont">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -40,24 +41,24 @@
                           <img class="pic-1" src="{{product.thumbnail.url}}">
                           <img  class="pic-2" src="{{product.thumbnail.url}}">
                       </a>
-                      <ul class="social">
+                      <!-- <ul class="social">
                           <li><a href="" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
                           <li><a href="" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
                           <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
-                      </ul>
-                      <span class="product-new-label">Sale</span>
-                      <span class="product-discount-label">20%</span>
+                      </ul> -->
+                      <!-- <span class="product-new-label">Sale</span>
+                      <span class="product-discount-label">20%</span> -->
                   </div>
-                  <ul class="rating">
+                  <!-- <ul class="rating">
                       <li class="fa fa-star"></li>
                       <li class="fa fa-star"></li>
                       <li class="fa fa-star"></li>
                       <li class="fa fa-star"></li>
                       <li class="fa fa-star disable"></li>
-                  </ul>
+                  </ul> -->
                   <div class="product-content">
                       <h3 class="title"><a href="#">{{product.product_name}}</a></h3>
-                      <div class="price">Current Price KSh {{product.price}} 
+                      <div class="price">Current Price KSh {{product.price|intcomma}} 
                           <span>Owners Target: Ksh20.00</span>
                           
                       </div>
