@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect
+from django.db.models import Max
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, auth
@@ -42,25 +44,34 @@ def productdetails(request, product_id):
     more = Product.objects.order_by('-timestamp')
     product = Product.objects.get(id=product_id)
     images = Photo.objects.filter(product=product)
-    bid_price = Bid.objects.filter(product=product)
-    print(bid_price)
-
+    bid_price = Bid.objects.filter(product=product).aggregate(Max('bid'))
+    # bid_price = bid_pric.aggregate(Max('bid_pric'))
+    # print(bid_price)
+    highest_bid_price = bid_price['bid__max']
     
 
     if request.method == 'POST':
+        
         user = request.user
         bid = request.POST['bid']
         product = product
+
+        
 
         Bid.objects.create(
             user=user,
             bid=bid,
             product=product
         )
+        messages.success(request, "Successfully bided on this product!")
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         
-        return redirect('/')
+        # return redirect('frontend:details', id=product_id)
+    # else:
+    #     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-    context = {'product': product, 'images':images, 'more':more, 'bid_price':bid_price}
+
+    context = {'product': product, 'images':images, 'more':more, 'bid_price':bid_price ,'highest_bid_price':highest_bid_price}
     return render(request,'frontend/details.html', context)
 
 
@@ -219,114 +230,38 @@ def updatepost(request, product_id):
     images = Photo.objects.filter(product=product)
     if request.method == 'POST':
         # ==========================================
-        if request.FILES.get('thumbnail') == None:
-            thumbnail = images.product.thumbnail
-            product_name = request.POST['product_name']
-            price = request.POST['price']
-            expected_sales_date = request.POST['expected_sales_date']
-            description = request.POST['description']
-            current_bid = request.POST['current_bid']
-            category = Category.objects.get(id=request.POST['category']) # request.POST['category']
-
-            photo = images.image
-
-            
-            
-            
-            # images.image = image
-            # images.product.thumbnail = thumbnail
-            # images.product.product_name = product_name
-            # images.product.price = price
-            # images.product.current_bid = current_bid
-            # images.product.expected_sales_date = expected_sales_date
-            # images.product.category = category
-            # images.product.description = description
-
-            # images.save()
-            for image in images:
-                product.save()
-                image.save()
-
-            # photo = Photo.objects.(
-            #     product = product,
-            #     image=image,
-            # )
-
-            
-        
-        if request.FILES.get('thumbnail') != None:
-            thumbnail = images.product.thumbnail #request.FILES.get('thumbnail') 
-            product_name = request.POST['product_name']
-            price = request.POST['price']
-            expected_sales_date = request.POST['expected_sales_date']
-            description = request.POST['description']
-            current_bid = request.POST['current_bid']
-            category = Category.objects.get(id=request.POST['category']) # request.POST['category']
-            photo = images.image
-            # firstname = request.POST['first']
-            # lastname = request.POST['last']
-            # location = request.POST['location']
-            # phone = request.POST['phone']
-            # nationalno = request.POST['identitycardno']
-            # idimage = user_credential.idimage
-
-            images.image = image
-            images.product.thumbnail = thumbnail
-            images.product.product_name = product_name
-            images.product.price = price
-            images.product.current_bid = current_bid
-            images.product.expected_sales_date = expected_sales_date
-            images.product.category = category
-            images.product.description = description
-
-            images.save()
-
         if request.FILES.getlist('photo') == None:
-            thumbnail = request.FILES.get('thumbnail') # images.product.thumbnail
             product_name = request.POST['product_name']
             price = request.POST['price']
             expected_sales_date = request.POST['expected_sales_date']
             description = request.POST['description']
-            current_bid = request.POST['current_bid']
             category = Category.objects.get(id=request.POST['category']) # request.POST['category']
             photo = images.image
 
 
-            # photo = images.image
-            # idimage = user_credential.idimage
-            # firstname = request.POST['first']
-            # lastname = request.POST['last']
-            # location = request.POST['location']
-            # phone = request.POST['phone']
-            # nationalno = request.POST['identitycardno']
 
             images.image = image
-            images.product.thumbnail = thumbnail
             images.product.product_name = product_name
             images.product.price = price
-            images.product.current_bid = current_bid
             images.product.expected_sales_date = expected_sales_date
             images.product.category = category
             images.product.description = description
-
             images.save()
 
         
         if request.FILES.get('photo') != None:
-            thumbnail = request.FILES.getlist('photo')
             product_name = request.POST['product_name']
             price = request.POST['price']
             expected_sales_date = request.POST['expected_sales_date']
             description = request.POST['description']
-            current_bid = request.POST['current_bid']
-            category = Category.objects.get(id=request.POST['category']) # request.POST['category']
+            category = Category.objects.get(id=request.POST['category'])
             photo = images.image
 
             images.image = image
-            images.product.thumbnail = thumbnail
+           
             images.product.product_name = product_name
             images.product.price = price
-            images.product.current_bid = current_bid
+           
             images.product.expected_sales_date = expected_sales_date
             images.product.category = category
             images.product.description = description

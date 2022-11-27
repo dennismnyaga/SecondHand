@@ -29,11 +29,16 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
+# dbx = dropbox.Dropbox('sl.BTTQ12bPg_RswsW4yXwakEKKsDswD2KiYlMEVJILx4GuCOPCnG6q7AKEi6bHpDrQRlt8JL5Jnz4VCDlrrL53Q0vb9m_WMYAzDliZ-gxfhDaL9-cUxm685HrCrjxIxXrh_m2n-Og')
+
+
 # Application definition
 
 INSTALLED_APPS = [
     'frontend',
     'users',
+    'dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,6 +49,7 @@ INSTALLED_APPS = [
     "tinymce",
     "crispy_forms",
     "django.contrib.humanize",
+
     
 ]
 
@@ -139,10 +145,11 @@ LOGIN_URL = 'users:signin'
 import django_heroku
 django_heroku.settings(locals())
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 
+# # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-
-
-
+# DROPBOX_OAUTH2_TOKEN = 'sl.BTQJRTCq2QKpwXeNhnb2srIZ6FDzyozUAK4qOlQwHAIZobuMKSeZhtONI6e67XL_tnNha1wF-ZocAZaIIvuf3d8X2ud_Adclw5NppZtUTq0pIeLVmo2wZsktBEHlBJPn8tMYJoQ'
+# DROPBOX_APP_KEY = 'lognx9j9gl9y39c'
+# DROPBOX_APP_SECRET = '7zfcwxza5lng5n8'
 

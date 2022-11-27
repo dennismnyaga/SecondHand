@@ -15,15 +15,19 @@ class Category(models.Model):
         return self.name
 
 class Product(models.Model):
+    
+
+
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     poster = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     product_name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=15, decimal_places=2)
     expected_sales_date = models.DateField()
     thumbnail = models.ImageField(upload_to= 'product_images', null=False, blank=False)
-    # current_bid = models.DecimalField(max_digits=7, decimal_places=2)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     description = models.TextField()
+    status = models.BooleanField(default=False, null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
    
     

@@ -15,7 +15,7 @@ class UploadForm(forms.ModelForm):
         model = Product
         
         fields = "__all__"
-        exclude = ['id']
+        exclude = ['id', 'status']
         
 
         
@@ -24,4 +24,4 @@ class updateform(forms.ModelForm):
     class Meta:
         model = Photo
         fields = '__all__'
-        exclude = ['id', 'poster']
+        exclude = ['id', 'poster','status']

@@ -1,0 +1,110 @@
+{% extends 'frontend/main.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<div class="container mt-3">
+    <div class="message">
+        {% for message in messages %}
+            <div class="alert alert-success text-center" role="alert">
+                {{message}}
+            </div>
+        {% endfor %}
+    </div>
+        <div class="row" id="content-wrapper">
+            
+            <div class="col-md-7 column">
+                <div class="imager" id="img-container">
+                    <div id="lens"></div>
+                    {% for image in images|slice:1 %}
+                            <img class="thum" id=featured   src="{{ image.image.url }}">
+                        {% endfor %}
+                    <!-- <img id=featured src="{{ product.thumbnail.url }}"> -->
+                </div>
+                <div id="slide-wrapper" >
+                    <img id="slideLeft" class="arrow" src="{% static 'frontend/images/arrow-left.png' %}">
+
+                    <div id="slider">
+                        {% for image in images %}
+                            <img class="thumbnail"  src="{{ image.image.url }}">
+                        {% endfor %}
+            
+                    </div>
+
+                    <img id="slideRight" class="arrow" src="{% static 'frontend/images/arrow-right.png' %}">
+                </div>
+            </div>
+
+            <div class="  col-md-5 column">
+                <h1>{{ product.product_name }}</h1>
+                <hr>
+                
+
+                <p>{{product.description}}</p>
+                <!-- {% for bid in bid_price %} -->
+                {% if highest_bid_price %}
+                <h3><span>Current Price</span> Ksh {{highest_bid_price|intcomma}}</h3>
+                {% else %}
+                <h3><span>Product not yet bidded</span></h3>
+                {% endif %}
+                <!-- {% endfor %} -->
+                
+               
+                <div class="des">
+                    <p>Customer Target Price Ksh {{product.price|intcomma}}</p>
+                </div>
+               
+             
+                
+            </div>
+        </div>
+        <div class="container">
+            <div class="username">
+                <div class="card card-body">
+                    <!-- <a class="btn btn-primary  btn-sm btn-block" href="">Create Customer</a> -->
+                    <table class="table table-sm">
+                        <tr>
+                            <th>First name</th>
+                            <th>Second name</th>
+                            <th>Phone Number</th>
+                            <th>ID number</th>
+                            
+                            <th>Location</th>
+                            <th>Product Status</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>{{user_credential.first_name}}</td>
+                            <td>{{ user_credential.last_name }}</td>
+                            <td>{{ user_credential.phone }}</td>
+                            <td>{{ user_credential.nationalno }}</td>
+                            <td>{{ user_credential.location }}</td>
+                            <td>{{ product.status }}</td>
+                        </tr>
+                       
+                
+        
+                    </table>
+                </div>
+                <div class="images mt-2">
+                    <div class="identity">
+                        <h5>ID image</h5>
+                        <img width="200" height="200"  src="{{user_credential.idimage.url}}" class="rounded float-start" alt="...">
+                        
+                    </div>
+                    <div class="profile text-center">
+                        <h5>User profile</h5>
+                        <img width="200" height="200" src="{{user_credential.user_image.url}}" class="rounded" alt="...">
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <form action="" method="post">
+                {% csrf_token %}
+                {{form}}
+                <button class="btn btn-info" type="submit">Change</button>
+            </form>
+        </div>
+</div>
+{% endblock %}

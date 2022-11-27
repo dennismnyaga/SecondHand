@@ -52,58 +52,6 @@ function check_duplicate(name){
 // =======================================================
 
 
-var pictures = [];
-
-function image_Selector(){
-  var image = document.getElementById('imag').files;
-  for(i=0; i<image.length; i++){
-    if(check_duplicate(image[i].name)){
-      pictures.push({
-        "name":image[i],
-        "url": URL.createObjectURL(image[i]),
-        "file":image[i],
-      })
-    }else{
-      alert(image[i].name + " is already added to the list");
-    }
-    
-  }
-  // document.getElementById('form').reset();
-  document.getElementById('conn').innerHTML = image_Showed()
-};
-
-function image_Showed(){
-  var image = "";
-  pictures.forEach((i) => {
-    image += `<div class="image_container d-flex justify-content-center position-relative">
-    <img src="`+ i.url +`" alt="Image">
-    <span class="position-absolute" onclick="delete_image(`+ pictures.indexOf(i) +`)">&times;</span>
-
-</div>`;
-  });
-  return image;
-};
-
-function delete_image(e){
-  pictures.splice(e, 1);
-  document.getElementById('conn').innerHTML = image_Showed()
-  
-}
-
-
-function check_duplicate(name){
-  var image = true;
-  if(pictures.length > 0){
-    for(e=0; e <pictures.length; e++){
-      if(pictures[e].name == name){
-        image = false;
-        break;
-      }
-    }
-  }
-  return image;
-}
-
 
 // ==========================product slides===============
 
@@ -135,3 +83,40 @@ function showSlides(n) {
   dots[slideIndex-1].className += " active";
   captionText.innerHTML = dots[slideIndex-1].alt;
 }
+
+
+
+
+// ========================================
+function readURL(input) {
+  if (input.files && input.files[0]) {
+
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('.image-upload-wrap').hide();
+
+      $('.file-upload-image').attr('src', e.target.result);
+      $('.file-upload-content').show();
+
+      $('.image-title').html(input.files[0].name);
+    };
+
+    reader.readAsDataURL(input.files[0]);
+
+  } else {
+    removeUpload();
+  }
+}
+
+function removeUpload() {
+  $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+  $('.file-upload-content').hide();
+  $('.image-upload-wrap').show();
+}
+$('.image-upload-wrap').bind('dragover', function () {
+        $('.image-upload-wrap').addClass('image-dropping');
+    });
+    $('.image-upload-wrap').bind('dragleave', function () {
+        $('.image-upload-wrap').removeClass('image-dropping');
+});

@@ -18,6 +18,7 @@
 #featured{
 	max-width: 500px;
 	max-height: 600px;
+	object-fit: fill;
 
 	cursor: pointer;
 	border: 2px solid black;
@@ -35,6 +36,7 @@
 	border-radius: 5px;
 
 }
+
 
 .thumbnail:hover{
 	opacity:1;

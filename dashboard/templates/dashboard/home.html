@@ -1,0 +1,70 @@
+{%  extends 'dashboard/main.html' %}
+
+{% block content %}
+
+{%  include 'dashboard/status.html' %}
+
+<br>
+
+<div class="row">
+	<div class="col-md-5">
+		<h5>VERIFIED PRODUCTS:</h5>
+		<hr>
+		<div class="card card-body">
+			<!-- <a class="btn btn-primary  btn-sm btn-block" href="">Create Customer</a> -->
+			<table class="table table-sm">
+				<tr>
+					<th>Product</th>
+					<!-- <th>Note</th> -->
+					<th>Date Posted</th>
+					<!-- <th>Status</th> -->
+					<th>Update</th>
+					<!-- <th>Remove</th> -->
+				</tr>
+				{% for product in verified_products %}
+                <tr>
+                    <td>{{product.product_name}}</td>
+                    <!-- <td>{{order.note}}</td> -->
+                    <td>{{product.timestamp}}</td>
+                    <td><a href="{% url 'dashboard:details'  product.id%}"><button class="btn btn-info">Verify</button></a></td>
+                    <!-- <td><a href=""><button class="btn btn-danger">Delete</button></a></td> -->
+                </tr>
+				{% endfor %}
+		
+
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-7">
+		<h5>LAST 5 UNVERIFIED PRODUCTS</h5>
+		<hr>
+		<div class="card card-body">
+			
+			<table class="table table-sm">
+				<tr>
+					<th>Product</th>
+					<!-- <th>Note</th> -->
+					<th>Date Posted</th>
+					<!-- <th>Status</th> -->
+					<th>Update</th>
+					<!-- <th>Remove</th> -->
+				</tr>
+				{% for product in unverified_products %}
+					<tr>
+						<td>{{product.product_name}}</td>
+						<!-- <td>{{order.note}}</td> -->
+						<td>{{product.timestamp}}</td>
+						<td><a href="{% url 'dashboard:details'  product.id%}"><button class="btn btn-info">Verify</button></a></td>
+						<!-- <td><a href=""><button class="btn btn-danger">Delete</button></a></td> -->
+					</tr>
+				{% endfor %}
+		
+				
+			</table>
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}

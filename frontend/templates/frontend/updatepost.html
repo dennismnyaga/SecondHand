@@ -1,102 +1,129 @@
+
+
+
+
+
 {% extends 'frontend/main.html' %}
 {% load static %}
+{% load static i18n crispy_forms_tags %}
 {% block content %}
-<div class="container updater">
-  <div class="d-flex justify-content-center h-100">
-    {% if user.id == product.poster.id %}
-  <div class="user-card">
-    <div class="d-flex justify-content-center">
-      <h3 id="form-title">Update This Product</h3>
-    </div>
-    <div class="d-flex justify-content-center form_container">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <!-- ==================================== -->
 
-      <form method="POST" action="">
-        {%csrf_token%}
-        <div class="fom">
-          <div class="col-span-2">
-              <label for="">Product name</label>
-              <input  type="text" value="{{ product.product_name }}" name="product_name" class="shadow-none bg-gray-100 form-control form-control-lg">
-          </div>
-          <div class="col-span-2" id="form">
-              <label for="">Product Image</label>
-              <img style="height: 220px; width:200px" src="{{product.thumbnail.url}}" alt="" class="mb-3">
-              <span>Change Image</span>
-              <input type="file" name="thumbnail" id="image"  onchange="image_Select()">
-              <!-- <input required name="images" type="file" multiple > -->
-              <!-- <input type="file" name="thumbnail" id="image"  onchange="image_Select()">
-              <button class="btn btn-sm btn-primary" type="button" onclick="document.getElementById('image').click()">Choose Images</button>
-              <div class="d-flex flex-wrap justify-content-start mt-3" id="con">
-                  
-              </div>   -->
-          </div>
-          <hr>
-          <div class="col-span-2">
-              <label for="">Price</label>
-              <input type="number" value="{{product.price}}" name="price" class="shadow-none bg-gray-100 form-control form-control-lg">
-          </div>
-          <hr>
-              <div class="col-span-2">
-                  <div class="col-span-2">
-                      <label>Select a category</label>
-                          <select name="category"  class="form-control">
-                              <option value='none'>{{ product.category }}</option>
-      
-                              {% for category in categories %}
-                              <option value='{{category.id}}'>{{category.name}}</option>
-                              {% endfor %}
-                          </select>
-                  </div>
-              </div>
-              <hr>
-              <div class="col-span-2">
-                  <label for="">Expected Sales Date</label>
-                  <input type="datetime" value="{{product.expected_sales_date}}" name="expected_sales_date" class="shadow-none bg-gray-100 form-control form-control-lg">
-              </div>
-              <hr>
-              <div class="col-span-2">
-                  <label for="">Current Bid</label>
-                  <input type="number" value="{{product.price}}" name="current_bid" class="shadow-none bg-gray-100 form-control form-control-lg">
-              </div>
-              <hr>
-              <div class="col-span-2">
-                  <label for="">Describe Your Product</label>
-                  <input required value="{{product.description}}" name="description" type="text" placeholder="Enter a description"
-                  class="form-control">
-                  <!-- <textarea name="details" id="" ></textarea> -->
-              </div>
-              <hr>
-              <div class="col-span-2" id="form">
-                  <label for="">images</label>
-                  <!-- <input required name="images" type="file" multiple > -->
-                  <input type="file" name="images" id="imag" class="d-none" multiple onchange="image_Selector()">
-                  <button class="btn btn-sm btn-primary" type="button" onclick="document.getElementById('imag').click()">Choose Images</button>
-                  <div class="d-flex flex-wrap justify-content-start mt-3" id="conn">
-                   
-                    <div class="row" id="al">
-                      {% for image in images %}
-                      <div class="col">
-                        <img style="height: 100px; width: 100px" src="{{ image.image.url }}" alt="">
-                      </div>  
-                      {% endfor %}
+        <div class="container update shadow dark:bg-gray-800">
+            <div class="d-flex justify-content-center h-100">
+              {% if user.id == product.poster.id %}
+            <div class="user-card">
+                <div class="d-flex justify-content-center">
+                    <h3 id="form-title">Update This Product</h3>
+                </div>
+                <div class="d-flex justify-content-center form_container">
+                <form method="POST" action="" enctype="multipart/form-data" id="">
+                    {%csrf_token%}
+                    <div class="fom">
+                        <div class="col-span-2">
+                            <label for="">Product name</label>
+                            <input  required type="text" value="{{ product.product_name }}" name="product_name" class="shadow-none bg-gray-100 form-control form-control-lg">
+                        </div>
+                        <!-- ========================================================= -->
+                        <div class="file-upload">
+                            <label for="">Product Profile Image</label>
+                            <button class="btn btn-sm  file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )"><img src="{% static 'frontend/images/cam.svg' %}" alt=""></button>
+                          
+                            <div class="image-upload-wrap">
+                              <input name="thumbnail" required class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                              <!-- <div class="drag-text">
+                                <h3>Drag and drop a file or select add Image</h3>
+                              </div> -->
+                            </div>
+                            <div class="file-upload-content">
+                              <img class="file-upload-image" src="#" alt="your image" />
+                              <div class="image-title-wrap">
+                                <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-span-2 container" id="form">
+                            <label for="">Upload Images (Upload upto 20 Images)</label>
+                            <div class="current">
+
+                              <div class="image_container d-flex justify-content-center position-relative">
+                                <img class="me-2" width="100" height="100"  src="{{ image.image.url }}">
+                                <!-- <img src="`+ i.url +`" alt="Image"> -->
+                                <span class="position-absolute" onclick="delete_image(`+ images.indexOf(i) +`)">&times;</span>
+                            
+                            </div>`
+                              <!-- {% for image in images %}
+                                <img class="me-2" width="100" height="100"  src="{{ image.image.url }}">
+                              {% endfor %} -->
+                            </div>
+                            <!-- <input required name="images" type="file" multiple > -->
+                            <input type="file" name="images" id="image" multiple onchange="image_Select()" required class="d-none">
+                            <button class="btn btn-sm" type="button" onclick="document.getElementById('image').click()"><img src="{% static 'frontend/images/cam.svg' %}" alt=""></button>
+                            <div class="d-flex flex-wrap justify-content-start mt-3" id="con">
+                              
+                            </div>  
+                        </div>
+                     
+                        <!-- ========================================================= -->
+                        <!-- <div class="col-span-2" id="fo">
+                            <label for="">Product Image</label>
+                           
+                            <input type="file" name="thumbnail" id="image"  onchange="image_Select()">
+                            <button class="btn btn-sm btn-primary" type="button" onclick="document.getElementById('image').click()">Choose Images</button>
+                            <div class="d-flex flex-wrap justify-content-start mt-3" id="con">
+                                
+                            </div>  
+                        </div> -->
+                        <hr>
+                        <div class="col-span-2">
+                            <label for="">Price</label>
+                            <input value="{{product.price}}" required type="number" name="price" class="shadow-none bg-gray-100 form-control form-control-lg">
+                        </div>
+                        <hr>
+                            <div class="col-span-2">
+                                <div class="col-span-2">
+                                    <label>Select a category</label>
+                                        <select name="category" required class="shadow-none bg-gray-100 form-control form-control-lg">
+                                            <option value='none'>{{ product.category }}</option>
                     
-                    </div>
-                  </div>  
-              </div>
-              <hr>
-  </div>
-        <div class="d-flex justify-content-center mt-3 login_container">
-        <button class="btn btn-outline-success"  name="submit">Update</button>
-        <a class="btn btn-outline-info ms-2" href="{% url 'frontend:details'  product.id %}">Cancel</a>
-        </div>
-      </form>
-    </div>  
-  </div>
-  {% else %}
-  <h1>{{user.id}} == {{product.poster.id}}</h1>
-        <h1>You Should not be here</h1>
-  {% endif %}
-</div>
-  </div>
-</div>
-
-{% endblock %}
+                                            {% for category in categories %}
+                                            <option value='{{category.id}}'>{{category.name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="col-span-2">
+                                <label for="">Expected Sales Date</label>
+                                <input type="datetime" required name="expected_sales_date" class="shadow-none bg-gray-100 form-control form-control-lg">
+                            </div>
+                            <hr>
+                            
+                            <hr>
+                            <div class="col-span-2 de">
+                                <label for="">Describe Your Product</label>
+                                <textarea required name="description" ></textarea>
+                            </div>
+                            <hr>
+                            
+                            <!-- <div class="bottom-btn mb-5">
+                                <button type="submit" class="btn btn-outline-info bg-blue-700"> Save </button>
+                            </div> -->
+                </div>
+                <div class="d-flex justify-content-center mt-3 mt-3 login_container">
+                  <button class="btn btn-outline-success"  name="submit">Update</button>
+                  <a class="btn btn-outline-info ms-2" href="{% url 'frontend:details'  product.id %}">Cancel</a>
+                  </div>
+                </form>
+                </div>  
+            </div>
+            {% else %}
+            <h1>{{user.id}} == {{product.poster.id}}</h1>
+                  <h1>You Should not be here</h1>
+            {% endif %}
+            </div>
+        </div>        
+    <!-- ==================================== -->
+{%endblock %}
